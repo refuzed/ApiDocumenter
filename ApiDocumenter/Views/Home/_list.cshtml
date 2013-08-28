@@ -1,0 +1,16 @@
+﻿@model System.Type
+
+[
+<ul>
+    <li> 
+    @if (Model.IsPrimitive || Model.IsValueType || Model == typeof(String))
+    {
+        Write(Model.Name);
+    }
+    else
+    {
+        Html.RenderPartial("_complex", Tuple.Create(Model, "before"));
+    }
+    </li>
+</ul>     
+]

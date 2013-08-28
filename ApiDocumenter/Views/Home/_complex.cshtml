@@ -1,0 +1,40 @@
+﻿@model Tuple<System.Type,string>
+
+@helper GetRootElementType(Type type, int depth = 0)
+{
+    if (type.IsArray)
+    {
+        var element = type.GetElementType();
+        @GetRootElementType(element, depth + 1);
+        return;
+    }
+    
+    @type.Name.Split('`')[0].Split('[')[0]
+
+    if (type.IsGenericType)
+    {
+        Write("<");
+
+        var typeArgs = Model.Item1.GetGenericArguments();
+                    
+        bool first = true;
+        foreach(var typeArg in typeArgs)
+        {
+            if (!first) { Write(", "); } else { first = false; }
+            @typeArg.Name
+        }
+                    
+        Write(">");
+    }
+    
+    for(int i = 0; i < depth; i++)
+    {
+        Write("[]");
+    }
+}
+
+<span>
+    <a class="data-post-ajax" data-action="@Url.Action("GetTypeView", "Home")" data-payload="@Model.Item1.AssemblyQualifiedName" data-mode="@Model.Item2">
+        @GetRootElementType(Model.Item1)
+    </a>
+</span>

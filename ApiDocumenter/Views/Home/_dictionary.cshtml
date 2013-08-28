@@ -1,0 +1,15 @@
+﻿@model System.Type
+
+@{ var genericArgs = Model.GetGenericArguments(); }
+
+{ 
+    <ul>
+        @Html.Partial("_kvp", genericArgs)
+    </ul>
+
+    @Html.Partial("_complex", Tuple.Create(Model, "replace"))
+    
+}
+
+
+

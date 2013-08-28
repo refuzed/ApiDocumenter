@@ -1,0 +1,24 @@
+﻿@model System.Type[]
+
+<li>
+    @if (Model[0].IsPrimitive || Model[0].IsValueType || Model[0] == typeof(String))
+    {
+        Write(Model[0].Name);
+    }
+    else
+    {
+        Html.RenderPartial("_complex", Tuple.Create(Model[0], "replace"));
+    }
+
+    :
+
+    @if (Model[1].IsPrimitive || Model[1].IsValueType || Model[1] == typeof(String))
+    {
+        Write(Model[1].Name);
+    }
+    else
+    {
+        Html.RenderPartial("_complex", Tuple.Create(Model[1], "replace"));
+    }
+
+</li>

@@ -1,0 +1,13 @@
+﻿@model System.Type
+
+<select>
+@{
+    var fields = Model.GetFields();
+    
+    foreach(var field in fields)
+    {
+        if (field.Name.Equals("value__")) { continue; }
+        <option value="@field.GetRawConstantValue()">@field.Name</option>
+    }
+}
+</select>

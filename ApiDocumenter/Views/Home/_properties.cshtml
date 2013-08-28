@@ -1,0 +1,22 @@
+﻿@model System.Reflection.PropertyInfo[]
+{
+<ul>
+    @foreach (var property in Model)
+    {
+        var propertyType = property.PropertyType;
+
+        <li> 
+        "@property.Name" : 
+
+        @if (!propertyType.IsEnum && (propertyType.IsPrimitive || propertyType.IsValueType || propertyType == typeof(String)))
+        {
+            Write(propertyType.Name);
+        }
+        else
+        {
+            Html.RenderPartial("_complex", Tuple.Create(propertyType, "replace"));
+        }
+        </li>
+    }
+</ul>     
+}
